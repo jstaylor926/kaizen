@@ -1,8 +1,20 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import * as React from 'react';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import Router from './Routes';
+import Home from '.';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+const client = new ApolloClient({
+  uri: 'https://rickandmortyapi.com/graphql',
+  cache: new InMemoryCache()
+});
+
+
+function MyApp() {
+  return (
+    <ApolloProvider client={client}>
+      <Home />
+  </ApolloProvider>
+  )
 }
 
-export default MyApp
+export default MyApp;
